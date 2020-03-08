@@ -224,8 +224,6 @@ void randomMove() {
 }
 
 
-
-
 void human(){
      if (movementSensor.dataReady()) {
         ir1 = movementSensor.getRawIR1();
