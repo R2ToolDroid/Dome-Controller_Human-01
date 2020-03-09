@@ -1,14 +1,12 @@
 #include <Arduino.h>       
 
 void resetM(){
-
    digitalWrite(ledPin1, LOW); 
    digitalWrite(ledPin2, LOW); 
    ledState1 = LOW;
    ledState2 = LOW;
    digitalWrite(links, 0);  
    digitalWrite(rechts, 0);  
-  
 }
 
 int center(String dir) {
@@ -58,10 +56,10 @@ void FindRoTime(){
     zeit2 = millis();
     if (debug){Serial.print(F("Zeit1_"));Serial.println(zeit1); Serial.print(F("Zeit2_")); Serial.println(zeit2);}
     rotime = zeit2-zeit1;
-    if (debug){Serial.print("rotime_"); Serial.println(rotime);}
+    if (debug){Serial.print(F("rotime_")); Serial.println(rotime);}
     Rpos = rotime/360; ///Rpos ist dann Winkel in Zeit Variable  90° also SUM*90;
     center("R");
-    if (debug){Serial.print("Rpos_"); Serial.println(Rpos);}
+    if (debug){Serial.print(F("Rpos_")); Serial.println(Rpos);}
 }
 
 
@@ -85,8 +83,6 @@ void rotateR( int Rpos) {
           
 }
 
-
-
 void rotateL( int Rpos) {
      
     if (debug){Serial.println(Rpos);}
@@ -100,7 +96,6 @@ void rotateL( int Rpos) {
     } else {
       ledState2 = LOW;
     }
-
     // set the LED with the ledState of the variable:
     digitalWrite(ledPin2, ledState2);
     digitalWrite(links, ledState2); 
@@ -118,49 +113,43 @@ int rcMove() {
     
     if (sensorValue < 1250){
       if (debug){ 
-        Serial.println("Links");
+        Serial.println(F("Links"));
       }
           // set the LED with the ledState of the variable:
      digitalWrite(ledPin2, HIGH);
      tempo = sensorValue /4;
      tempo = tempo *-1; 
      tempo = tempo +500;
-
     //Drehung Rechts
-      
      digitalWrite(ledPin1, HIGH); 
-     analogWrite(links, 0); 
-     analogWrite(rechts, tempo); 
-     
+     digitalWrite(links, 0); 
+     digitalWrite(rechts, tempo); 
     
     } else if (sensorValue > 1650) {
       if (debug) {
-      Serial.println("rechts");
+      Serial.println(F("rechts"));
       }     
      // set the LED with the ledState of the variable:
       digitalWrite(ledPin1, HIGH); 
       tempo = sensorValue /4;
       //tempo = tempo /5;
       
-      analogWrite(rechts, 0);  
-      analogWrite(links, tempo); 
+      digitalWrite(rechts, 0);  
+      digitalWrite(links, tempo); 
      
     }  else {
-      analogWrite(links, 0);  
+      digitalWrite(links, 0);  
       digitalWrite(ledPin1, LOW); 
-      analogWrite(rechts, 0); 
-      digitalWrite(ledPin2, LOW);
-      
-      //delay (zeit);
-      
+      digitalWrite(rechts, 0); 
+      digitalWrite(ledPin2, LOW);     
+      //delay (zeit);    
     }
 
     }///End Sensor Check
     
   if (debug) { 
-    
-    Serial.print("Tempo ");Serial.println(tempo);
-    Serial.print("Value ");Serial.println(sensorValue);
+    Serial.print(F("Tempo "));Serial.println(tempo);
+    Serial.print(F("Value "));Serial.println(sensorValue);
     }
   
 }
@@ -168,7 +157,8 @@ int rcMove() {
 void randomMove() {
  
    // print a random number from 0 to 299
-  zeit = random(2000, 6000);
+  zeit = random(3000, 6000)+(temp-20)*faktor;
+  
   // print a random number from 10 to 19
   randNumber = random(10, 40);
   //Speed
@@ -183,42 +173,44 @@ void randomMove() {
     }
      // set the LED with the ledState of the variable:
      digitalWrite(ledPin2, HIGH);
-     analogWrite(links, tempo);  
+     digitalWrite(links, tempo);  
      delay(moving);
-     analogWrite(links, 0);  
+     digitalWrite(links, 0);  
      digitalWrite(ledPin2, LOW);
      delay(500);
     
     } else if (randNumber > 20 && randNumber <= 30) {  ///Rechts Drehung
 
      if (debug) {
-      Serial.println("rechts");
+      Serial.println(F("rechts"));
       Serial.println(randNumber);
      }
      // set the LED with the ledState of the variable:
-      digitalWrite(ledPin1, HIGH); 
-      
-      analogWrite(rechts, tempo); 
+      digitalWrite(ledPin1, HIGH);   
+      digitalWrite(rechts, tempo); 
       delay(moving);      
       digitalWrite(ledPin1, LOW); 
-      analogWrite(rechts, 0); 
+      digitalWrite(rechts, 0); 
       delay(500);
       
     }  else {
       
-      analogWrite(links, 0);  
-      analogWrite(rechts, 0); 
+      digitalWrite(links, 0);  
+      digitalWrite(rechts, 0); 
       digitalWrite(ledPin1, LOW); 
       digitalWrite(ledPin2, LOW); 
-      delay (zeit);
-      
+      delay (zeit);  
     }
 
   if (debug) {
-      Serial.print("Zeit ");
+      Serial.print(F("Zeit "));
       Serial.println(zeit);
-      Serial.print("Druchlauf ");
+      Serial.print(F("Druchlauf "));
       Serial.println(durchlauf);
+      Serial.print(F("Temp "));
+      Serial.println(temp);
+      Serial.print(F("Faktor "));
+      Serial.println(temp*faktor);
   }
  
 }

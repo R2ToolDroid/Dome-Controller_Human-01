@@ -6,7 +6,7 @@ void ProzessComando() {
     if (data == "hi-r2" )
       {             
        Serial.println("test gefunden");
-       ANIMATION_PLAY_ONCE(player, nono);    
+       ANIMATION_PLAY_ONCE(player, test);    
       }
       
     if (data == "stop" )
@@ -34,9 +34,7 @@ void ProzessComando() {
     if (data == "vers")   
       {
         Serial.println(F("-----   Versionnsnummer   -----"));
-       
-        Serial.println(VERSION);
-        
+        Serial.println(VERSION);     
         /*
          * Vorher 73% 77%
          */
@@ -51,7 +49,11 @@ void ProzessComando() {
         Serial.println(F("| mode1 : RC Move"));
         Serial.println(F("| mode2 : Human detect"));
         Serial.println(F("| mode3 : Service"));    
-        Serial.println(F("| usb   : Turn to Panel 2"));
+        Serial.println(F("| usb  : Turn to USB"));
+        Serial.println(F("| p1  : Turn to Panel 1"));
+        Serial.println(F("| p2  : Turn to Panel 2"));
+        Serial.println(F("| p3  : Turn to Panel 3"));
+        Serial.println(F("| p4  : Turn to Panel 4"));
         Serial.println(F("tool1"));
         Serial.println(F("tool2"));
         Serial.println(F("tool3")); 
@@ -69,100 +71,28 @@ void ProzessComando() {
 
       }
 
-    if (data == "mode1")
-      {
-        Serial.println(F("Mode = 1 RC"));
-        Mode = 1;
-      }
-
-
-    if (data == "mode0")
-      {
-        Serial.println(F("Mode 0 Random"));
-        Mode = 0;
-        if (debug) {
-      Serial.print("Mode= ");
-      Serial.println(Mode);
-  }
-      }
-
-      if (data == "mode3")
-      {
-        Serial.println(F("Mode 3 Service"));
-        Mode = 3;
-        if (debug) {
-      Serial.print("Mode= ");
-      Serial.println(Mode);
-  }
-      }
-
-      if (data == "mode2")
-      {
-        Serial.println(F("Mode 2 Human"));
-        Mode = 2;
-        if (debug) {
-      Serial.print("Mode= ");
-      Serial.println(Mode);
-  }
-      }
-      
-    if (data == "usb")
-      {
-        Serial.println("Rotation zu Position USB");
-        ANIMATION_PLAY_ONCE(player, toUSB); 
-           
-      }
-
-    if (data == "tool1")
-    {
-      Serial.println("Rotation zu Position tool1");
-        
-        rotateR(1000); 
-    }
+    if (data == "mode1"){Serial.println(F("Mode 1 RC"));Mode = 1;}
+    if (data == "mode0"){Serial.println(F("Mode 0 Random"));Mode = 0;}
+    if (data == "mode3"){Serial.println(F("Mode 3 Service"));Mode = 3;}
+    if (data == "mode2"){Serial.println(F("Mode 2 Human"));Mode = 2;}  
+     
+    if (data == "usb"){Serial.println(F("Rotation zu Position USB"));ANIMATION_PLAY_ONCE(player, toUSB);}
+    if (data == "p1"){Serial.println(F("Rotation zu Position P1"));ANIMATION_PLAY_ONCE(player, p1);}
+    if (data == "p2"){Serial.println(F("Rotation zu Position P2"));ANIMATION_PLAY_ONCE(player, p2);}
+    if (data == "p3"){Serial.println(F("Rotation zu Position P3"));ANIMATION_PLAY_ONCE(player, p3);}
+    if (data == "p4"){Serial.println(F("Rotation zu Position P4"));ANIMATION_PLAY_ONCE(player, p4);}
     
-    if (data == "tool2")
-    {
-      Serial.println("Rotation zu Position tool2");
-       
-        rotateR(1400); 
-    }
-
-    if (data == "tool3")
-    {
-      Serial.println("Rotation zu Position tool3");
-       
-        rotateR(4000); 
-    }  
-
+    if (data == "tool1"){Serial.println(F("Rotation zu Position tool1"));ANIMATION_PLAY_ONCE(player, p2);}
+    if (data == "tool2"){Serial.println(F("Rotation zu Position tool2"));ANIMATION_PLAY_ONCE(player, p3);}
+    if (data == "tool3"){Serial.println(F("Rotation zu Position tool3"));ANIMATION_PLAY_ONCE(player, p4);}  
+    if (data == "nono"){Serial.println(F("Rotation nono"));ANIMATION_PLAY_ONCE(player, nono);}
     
-    
-    if (data == "nono")
-    {
-      Serial.println("Rotation nono");
-       
-      //  nono();
-        
-    }
-    
-    if (data == "yea")
-    {
-      Serial.println("Rotation yea");
-       
-        rotateR(2000); 
-        rotateL(100);
-        
-    }
+    if (data == "yea"){Serial.println("Rotation yea");}
 
-    if (data =="dance") {
-      
-    }
+    if (data =="dance") { ANIMATION_PLAY_ONCE(player, dance);   }
 
-    if (data =="center") {
-      center("L");
-    }
- 
+    if (data =="center") {center("L");}
     data = "";
-
 }
 
 

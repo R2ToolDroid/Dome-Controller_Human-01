@@ -1,7 +1,5 @@
-
 ///Automatische Domebewegung Steuerung
 ///Doc Snyder Tool Droid DomeController
-///Funktion über Schalter deaktiviert
 ///für Arduino pro mini
 
 #include "ReelTwo.h"
@@ -15,14 +13,13 @@
 #include <Wire.h>  
 #include "Grove_Human_Presence_Sensor.h" // der SoftwareSerial Bibliothek nutzen.
 SoftwareSerial MainInput(14, 15); // Pin D14 ist RX, Pin D15 ist TX.
-                                   // Die Funktion softSerial() kann nun wie Serial() genutzt werden.
-                                                                  
+                                   // Die Funktion softSerial() kann nun wie Serial() genutzt werden.                                                                
 #include "vars.h"
 
 AK9753 movementSensor;
 
 int ir1, ir2, ir3, ir4;
-float temp;
+float temp = 24;
 
 #include "Mdriver.h"
 #include "animation.h"
@@ -32,8 +29,6 @@ ServoSequencer servoSequencer(servoDispatch);
 AnimationPlayer player(servoSequencer);
 
 #include "command.h"
-
-
 
 void setup(){
   Serial.begin(9600);
@@ -68,12 +63,7 @@ void setup(){
         Serial.println("Device not found. Check wiring.");
         while (1);
     }
-
    //last_time = millis();
-   
-
-
-   
 }
 
 
@@ -95,11 +85,9 @@ void loop() {
      human(); 
   }
 
-  
-
   if (durchlauf == 10 ) {
     center("L");
-  } 
-
+    } 
+  //Serial.println(durchlauf);
  
 }
