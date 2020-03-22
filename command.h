@@ -77,6 +77,7 @@ void ProzessComando() {
     if (data == "mode2"){Serial.println(F("Mode 2 Human"));Mode = 2;}  
      
     if (data == "usb"){Serial.println(F("Rotation zu Position USB"));ANIMATION_PLAY_ONCE(player, toUSB);}
+    if (data == "CB0"){Serial.println(F("Rotation zu Position USB"));ANIMATION_PLAY_ONCE(player, toUSB);}
     if (data == "p1"){Serial.println(F("Rotation zu Position P1"));ANIMATION_PLAY_ONCE(player, p1);}
     if (data == "p2"){Serial.println(F("Rotation zu Position P2"));ANIMATION_PLAY_ONCE(player, p2);}
     if (data == "p3"){Serial.println(F("Rotation zu Position P3"));ANIMATION_PLAY_ONCE(player, p3);}

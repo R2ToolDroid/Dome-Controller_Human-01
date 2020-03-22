@@ -28,6 +28,7 @@ int rechts = 6; //Pin 6
 
 
 int tempo = 200;
+int Htempo = 200;
 int faktor = 100;
 unsigned long Rpos = 35;  //Zeit von Center to Zielposition in Millisec
 int durchlauf = 0;
@@ -37,16 +38,16 @@ int rotime;
 unsigned long zeit1, zeit2;
 int sensorRC = 21; ///von 2 auf 21 geänder wg I2C
 int sensorRC_out = 10;
-int Mode = 3;// 0=RandMove // 1=RCMove  //2=human //3=Service
+int Mode = 0;// 0=RandMove // 1=RCMove  //2=human //3=Service
 int moving = 0;
 int SendStatus = 16; /// StatusSignal to PowerControl
 
 int centerState = 0;
-const int ledPinC =  20;  
+//const int ledPinC =  20;  
 const int ledPin1 =  18;  
 const int ledPin2 =  19;  
 
-int ledStateC = LOW;
+//int ledStateC = LOW;
 int ledState1 = LOW; 
 int ledState2 = LOW; 
 

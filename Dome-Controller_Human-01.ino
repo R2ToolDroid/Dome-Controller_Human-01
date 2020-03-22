@@ -61,9 +61,11 @@ void setup(){
    //Turn on sensor
     if (movementSensor.initialize() == false) {
         Serial.println("Device not found. Check wiring.");
-        while (1);
+        //while (1);
+        delay(3000);
     }
    //last_time = millis();
+   
 }
 
 
@@ -88,6 +90,7 @@ void loop() {
   if (durchlauf == 10 ) {
     center("L");
     } 
+    
   //Serial.println(durchlauf);
  
 }
