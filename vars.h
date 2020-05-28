@@ -1,7 +1,7 @@
 #include <Arduino.h>                           
 
 String data; //Consohlen Input
-String VERSION = "28-02-2020-Human";
+String VERSION = "28-05-2020-Human";
 
 byte debug = false;
 long randNumber;
@@ -41,9 +41,10 @@ int sensorRC_out = 10;
 int Mode = 0;// 0=RandMove // 1=RCMove  //2=human //3=Service
 int moving = 0;
 int SendStatus = 16; /// StatusSignal to PowerControl
+int stat=0;
 
 int centerState = 0;
-//const int ledPinC =  20;  
+const int ledPinC =  20;  
 const int ledPin1 =  18;  
 const int ledPin2 =  19;  
 

@@ -36,9 +36,13 @@ void setup(){
    // set the digital pin as output:
   pinMode(ledPin1, OUTPUT);
   pinMode(ledPin2, OUTPUT);
+  pinMode(ledPinC, OUTPUT);
 
   pinMode(links, OUTPUT);
   pinMode(rechts, OUTPUT);
+
+  pinMode(SendStatus,INPUT);
+  pinMode(sensorCenter,INPUT);
 
   digitalWrite(links, 0);  
   digitalWrite(rechts, 0); 
@@ -92,5 +96,16 @@ void loop() {
     } 
     
   //Serial.println(durchlauf);
- 
+    stat = digitalRead(SendStatus);
+
+    //Serial.print(stat);
+
+    if (stat == 0) {
+      Mode++;
+      digitalWrite(ledPinC, HIGH);  
+      delay(1000);
+      digitalWrite(ledPinC, LOW);  
+      }
+     if (Mode >= 3){Mode=0;}
+    
 }
