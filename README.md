@@ -1,5 +1,6 @@
 # Dome-Controller_Human-01
 New Version of Dome Movement
+![Sensor](https://github.com/R2ToolDroid/Dome-Controller_Human-01/blob/master/images/Board.jpg)
 
 This Controller replace the old one and get a new Level
 
