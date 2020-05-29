@@ -17,4 +17,27 @@ Now is in Development Status
 
 
 
+Here a set of Images for the wiring:
+
+Center Sensor
+![Sensor](/images/Dome-Control001.jpg)
+
+
+Seed Human Sensor
+
+
+
+![Sensor](/images/Dome-Control002.jpg)
+
+Servo Imput
+![Sensor](/images/Dome-Control003.jpg)
+
+
+Power Input
+
+![Sensor](/images/Dome-Control004.jpg)
+
+
+
+
 ....more to come :-)
