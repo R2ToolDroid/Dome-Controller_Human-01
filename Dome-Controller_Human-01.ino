@@ -78,6 +78,10 @@ void loop() {
     Comand();
     AnimatedEvent::process();
 
+
+
+    
+
   if (Mode == 0){
      randomMove();
      durchlauf = durchlauf+1;

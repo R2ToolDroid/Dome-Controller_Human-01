@@ -11,7 +11,7 @@ void resetM(){
 
 int center(String dir) {
     /// Fuert den Dome in die Ausgangsposition //
-    centerState = digitalRead(sensorCenter);  
+   centerState = digitalRead(sensorCenter);  
    if (debug) {   
     Serial.print(F("CenterMode "));
     Serial.println(centerState);
@@ -19,20 +19,22 @@ int center(String dir) {
     digitalWrite(rechts, 0); 
     digitalWrite(links, 0); 
       
-      while ( digitalRead(sensorCenter) == 1){
+      while ( centerState == 0){
+
+                 centerState = digitalRead(sensorCenter);  
                 
                 if (dir == "L" ) {
-                  digitalWrite(links, 200); 
+                  digitalWrite(links, 50); 
                   digitalWrite(ledPin2, HIGH);                  
                 } 
                 
                 if (dir == "R") {
-                  digitalWrite(rechts, 200); 
+                  digitalWrite(rechts, 50); 
                   digitalWrite(ledPin1, HIGH); 
                 }
                 
                 if (debug){Serial.println(F("try to get center"));Serial.print(sensorCenter);}
-            
+              
  
       }
    digitalWrite(ledPin1, LOW); 
@@ -169,7 +171,7 @@ void randomMove() {
   // print a random number from 10 to 19
   randNumber = random(10, 40);
   //Speed
-  tempo = random(80,200);
+  tempo = random(80,100);
   //Moving länge
   moving = random(500,1500);
  
@@ -234,6 +236,18 @@ void human(){
         temp = movementSensor.getTMP();
         movementSensor.startNextSample();
         Sdiff = ir2 - ir4 ; ///Differenz
+
+        int gap = 250;  /// Lücke wo nichts verfolgt wird
+
+        int range = ir2+ir4;  /// Abstand
+
+        if (range < 0 ) {
+            gap = 200;
+            } else {
+              gap = 500;
+            }
+
+       
         
         if (debug)
         {  
@@ -253,6 +267,11 @@ void human(){
         //Serial.print(F("], millis["));
         //Serial.print(millis());
         //Serial.print(F("]"));
+
+        Serial.print("----range");
+        Serial.print(range);
+        Serial.print("----gap");
+        Serial.print(gap);
         Serial.println();
         }        
         ///////////////////////////////////////
@@ -262,7 +281,11 @@ void human(){
            
         byte diff = false;
 
-        if ((Sdiff >= 200)||(Sdiff <= -200)){ diff = true;}
+        
+
+        
+
+        if ((Sdiff >= gap)||(Sdiff <= -gap)){ diff = true;}
 
         if (diff){
 
@@ -283,8 +306,9 @@ void human(){
           analogWrite(ledPin2, LOW);  //Dreh nach L
           analogWrite(ledPin1, LOW);  //Dreh nach R
         }
+
       
     }
-    delay(1);
+    
   
 }
