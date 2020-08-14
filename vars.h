@@ -3,7 +3,7 @@
 String data; //Consohlen Input
 String VERSION = "1-08-2020-Human";
 
-byte debug = true;
+byte debug = false;
 long randNumber;
 long zeit;
 unsigned long previousMillis = 0;        // will store last time LED was updated
@@ -28,7 +28,7 @@ int rechts = 6; //Pin 6
 
 
 int tempo = 200;
-int Htempo = 100;
+int Htempo = 80;
 int faktor = 100;
 unsigned long Rpos = 35;  //Zeit von Center to Zielposition in Millisec
 int durchlauf = 0;

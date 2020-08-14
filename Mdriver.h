@@ -242,9 +242,9 @@ void human(){
         int range = ir2+ir4;  /// Abstand
 
         if (range < 0 ) {
-            gap = 200;
+           // gap = 200;
             } else {
-              gap = 500;
+           //   gap = 400;
             }
 
        
