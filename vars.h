@@ -28,7 +28,7 @@ int rechts = 6; //Pin 6
 
 
 int tempo = 200;
-int Htempo = 80;
+int Htempo = 120;
 int faktor = 100;
 unsigned long Rpos = 35;  //Zeit von Center to Zielposition in Millisec
 int durchlauf = 0;

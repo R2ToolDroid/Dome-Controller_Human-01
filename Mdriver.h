@@ -24,17 +24,23 @@ int center(String dir) {
                  centerState = digitalRead(sensorCenter);  
                 
                 if (dir == "L" ) {
-                  digitalWrite(links, 50); 
+                  digitalWrite(links, 80); 
                   digitalWrite(ledPin2, HIGH);                  
                 } 
                 
                 if (dir == "R") {
-                  digitalWrite(rechts, 50); 
+                  digitalWrite(rechts, 70); 
                   digitalWrite(ledPin1, HIGH); 
                 }
                 
-                if (debug){Serial.println(F("try to get center"));Serial.print(sensorCenter);}
-              
+                if (debug){
+                  Serial.println(F("try to get center"));
+                  Serial.print(sensorCenter);
+                  Serial.println(F("-"));
+                  Serial.print(dir);
+                  
+                  }
+                  
  
       }
    digitalWrite(ledPin1, LOW); 
@@ -75,12 +81,14 @@ void rotateR( int Rpos) {
     // if the LED is off turn it on and vice-versa:
     if (ledState1 == LOW) {
       ledState1 = HIGH;
+      tempo = 120;
     } else {
       ledState1 = LOW;
+      tempo = 0;
     }
     // set the LED with the ledState of the variable:
     digitalWrite(ledPin1, ledState1);
-    digitalWrite(rechts, ledState1);  
+    digitalWrite(rechts, tempo);  
   } //END IF
           
 }
@@ -95,12 +103,14 @@ void rotateL( int Rpos) {
     // if the LED is off turn it on and vice-versa:
     if (ledState2 == LOW) {
       ledState2 = HIGH;
+      tempo = 120;
     } else {
       ledState2 = LOW;
+      tempo = 0;
     }
     // set the LED with the ledState of the variable:
     digitalWrite(ledPin2, ledState2);
-    digitalWrite(links, ledState2); 
+    digitalWrite(links, tempo); 
     
   } //END IF
 }
@@ -123,7 +133,7 @@ int rcMove() {
      //tempo = tempo *-1; 
      //tempo = tempo +500;
 
-      tempo = map (sensorValue, 1250, 1015,50,255);
+      tempo = map (sensorValue, 2400, 500,50,250);
      
      
     //Drehung Rechts
@@ -171,7 +181,7 @@ void randomMove() {
   // print a random number from 10 to 19
   randNumber = random(10, 40);
   //Speed
-  tempo = random(80,100);
+  tempo = random(100,120);
   //Moving länge
   moving = random(500,1500);
  
