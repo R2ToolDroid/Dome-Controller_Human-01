@@ -23,8 +23,8 @@ int Sdiff = 0;
 //int rechts = 5; //Pin 5
 
 //Umgedreht
-int links = 5; //Pin 5
-int rechts = 6; //Pin 6
+//int links = 5; //Pin 5
+//int rechts = 6; //Pin 6
 
 
 int tempo = 200;
