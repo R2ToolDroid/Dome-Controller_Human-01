@@ -8,6 +8,14 @@
 #include "ServoDispatchDirect.h"
 #include "ServoSequencer.h"
 
+#include "BTS7960.h"
+
+const uint8_t EN = 8;
+const uint8_t L_PWM = 5;
+const uint8_t R_PWM = 6;
+
+BTS7960 motorController(EN, L_PWM, R_PWM);
+
 #include <SoftwareSerial.h>        // Durch diesen Include können wir die Funktionen 
 
 #include <Wire.h>  
@@ -38,14 +46,16 @@ void setup(){
   pinMode(ledPin2, OUTPUT);
   pinMode(ledPinC, OUTPUT);
 
-  pinMode(links, OUTPUT);
-  pinMode(rechts, OUTPUT);
+ // pinMode(links, OUTPUT);
+ // pinMode(rechts, OUTPUT);
 
   pinMode(SendStatus,INPUT);
   pinMode(sensorCenter,INPUT);
 
-  digitalWrite(links, 0);  
-  digitalWrite(rechts, 0); 
+  motorController.Enable();
+
+
+  motorController.Stop();  
  
   // if analog input pin 0 is unconnected, random analog
   // noise will cause the call to randomSeed() to generateB
@@ -69,6 +79,7 @@ void setup(){
         delay(3000);
     }
    //last_time = millis();
+   
    
 }
 

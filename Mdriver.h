@@ -5,8 +5,8 @@ void resetM(){
    digitalWrite(ledPin2, LOW); 
    ledState1 = LOW;
    ledState2 = LOW;
-   digitalWrite(links, 0);  
-   digitalWrite(rechts, 0);  
+   motorController.Stop();
+   
 }
 
 int center(String dir) {
@@ -16,31 +16,36 @@ int center(String dir) {
     Serial.print(F("CenterMode "));
     Serial.println(centerState);
    }
-    digitalWrite(rechts, 0); 
-    digitalWrite(links, 0); 
+    motorController.Stop();
       
       while ( centerState == 0){
 
                  centerState = digitalRead(sensorCenter);  
                 
                 if (dir == "L" ) {
-                  digitalWrite(links, 50); 
+                  motorController.TurnLeft(80); 
                   digitalWrite(ledPin2, HIGH);                  
                 } 
                 
                 if (dir == "R") {
-                  digitalWrite(rechts, 50); 
+                  //digitalWrite(rechts, 70); 
+                  motorController.TurnRight(70);
                   digitalWrite(ledPin1, HIGH); 
                 }
                 
-                if (debug){Serial.println(F("try to get center"));Serial.print(sensorCenter);}
-              
+                if (debug){
+                  Serial.println(F("try to get center"));
+                  Serial.print(sensorCenter);
+                  Serial.println(F("-"));
+                  Serial.print(dir);
+                  
+                  }
+                  
  
       }
    digitalWrite(ledPin1, LOW); 
    digitalWrite(ledPin2, LOW); 
-   digitalWrite(links, 0);  
-   digitalWrite(rechts, 0);  
+   motorController.Stop();
    
    delay(200);
    durchlauf = 0;
@@ -75,12 +80,15 @@ void rotateR( int Rpos) {
     // if the LED is off turn it on and vice-versa:
     if (ledState1 == LOW) {
       ledState1 = HIGH;
+      tempo = 120;
     } else {
       ledState1 = LOW;
+      tempo = 0;
     }
     // set the LED with the ledState of the variable:
     digitalWrite(ledPin1, ledState1);
-    digitalWrite(rechts, ledState1);  
+    motorController.TurnRight(tempo);
+    //digitalWrite(rechts, tempo);  
   } //END IF
           
 }
@@ -95,12 +103,15 @@ void rotateL( int Rpos) {
     // if the LED is off turn it on and vice-versa:
     if (ledState2 == LOW) {
       ledState2 = HIGH;
+      tempo = 120;
     } else {
       ledState2 = LOW;
+      tempo = 0;
     }
     // set the LED with the ledState of the variable:
     digitalWrite(ledPin2, ledState2);
-    digitalWrite(links, ledState2); 
+    motorController.TurnLeft(tempo);
+    //digitalWrite(links, tempo); 
     
   } //END IF
 }
@@ -123,15 +134,16 @@ int rcMove() {
      //tempo = tempo *-1; 
      //tempo = tempo +500;
 
-      tempo = map (sensorValue, 1250, 1015,50,255);
+      tempo = map (sensorValue, 1600, 900,50,250);
      
      
     //Drehung Rechts
 
     
      analogWrite(ledPin2, HIGH); 
-     analogWrite(links, 0); 
-     analogWrite(rechts, tempo); 
+     motorController.TurnLeft(tempo);
+     //analogWrite(links, 0); 
+     //analogWrite(rechts, tempo); 
     
     } else if (sensorValue > 1650) {
       if (debug) {
@@ -143,14 +155,16 @@ int rcMove() {
       tempo = map(sensorValue, 1650,2020,50,255);
       //tempo = tempo /5;
       
-      analogWrite(rechts, 0);  
-      analogWrite(links, tempo); 
+      motorController.TurnRight(tempo);
+      //analogWrite(rechts, 0);  
+      //analogWrite(links, tempo); 
      
     }  else {
-      analogWrite(links, 0);  
+      //analogWrite(links, 0);  
       analogWrite(ledPin1, LOW); 
-      analogWrite(rechts, 0); 
-      analogWrite(ledPin2, LOW);     
+      //analogWrite(rechts, 0); 
+      analogWrite(ledPin2, LOW);  
+      motorController.Stop();   
       //delay (zeit);    
     }
 
@@ -160,7 +174,7 @@ int rcMove() {
     Serial.print(F("Tempo "));Serial.println(tempo);
     Serial.print(F("Value "));Serial.println(sensorValue);
     }
-  
+  motorController.Disable();
 }
 
 void randomMove() {
@@ -171,7 +185,7 @@ void randomMove() {
   // print a random number from 10 to 19
   randNumber = random(10, 40);
   //Speed
-  tempo = random(80,100);
+  tempo = random(100,120);
   //Moving länge
   moving = random(500,1500);
  
@@ -181,10 +195,12 @@ void randomMove() {
      Serial.println(randNumber);
     }
      // set the LED with the ledState of the variable:
+     motorController.TurnLeft(tempo);
      analogWrite(ledPin2, HIGH);
-     analogWrite(links, tempo);  
+     //analogWrite(links, tempo);  
      delay(moving);
-     analogWrite(links, 0);  
+     motorController.Stop(); 
+     //analogWrite(links, 0);  
      analogWrite(ledPin2, LOW);
      delay(500);
     
@@ -196,16 +212,18 @@ void randomMove() {
      }
      // set the LED with the ledState of the variable:
       analogWrite(ledPin1, HIGH);   
-      analogWrite(rechts, tempo); 
+      motorController.TurnRight(tempo);
+      //analogWrite(rechts, tempo); 
       delay(moving);      
       analogWrite(ledPin1, LOW); 
-      analogWrite(rechts, 0); 
+      motorController.Stop(); 
+      //analogWrite(rechts, 0); 
       delay(500);
       
     }  else {
-      
-      analogWrite(links, 0);  
-      analogWrite(rechts, 0); 
+      motorController.Stop(); 
+      //analogWrite(links, 0);  
+      //analogWrite(rechts, 0); 
       analogWrite(ledPin1, LOW); 
       analogWrite(ledPin2, LOW); 
       delay (zeit);  
@@ -292,17 +310,21 @@ void human(){
            if (ir4 > ir2){ ////turn right
                 //Serial.print("Dreh nach Rechts");
                 analogWrite(ledPin2, Htempo);  //Dreh nach R
-                analogWrite(links,Htempo); 
+               
+                motorController.TurnLeft(Htempo);
+                //analogWrite(links,Htempo); 
            }
            
             if (ir2 > ir4){ ////turn left
                 //Serial.print("Dreh nach links");
                 analogWrite(ledPin1, Htempo);  //Dreh nach L
-                analogWrite(rechts,Htempo); 
+                //analogWrite(rechts,Htempo); 
+                motorController.TurnRight(Htempo);
            } 
         } else {
-          analogWrite(rechts, LOW); 
-          analogWrite(links, LOW); 
+           motorController.Stop(); 
+          //analogWrite(rechts, LOW); 
+         // analogWrite(links, LOW); 
           analogWrite(ledPin2, LOW);  //Dreh nach L
           analogWrite(ledPin1, LOW);  //Dreh nach R
         }
