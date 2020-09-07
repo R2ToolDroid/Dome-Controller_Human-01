@@ -3,7 +3,7 @@
 String data; //Consohlen Input
 String VERSION = "1-08-2020-Human";
 
-byte debug = false;
+byte debug = true;
 long randNumber;
 long zeit;
 unsigned long previousMillis = 0;        // will store last time LED was updated
@@ -38,7 +38,7 @@ int rotime;
 unsigned long zeit1, zeit2;
 int sensorRC = 21; ///von 2 auf 21 geänder wg I2C
 int sensorRC_out = 10;
-int Mode = 2;// 0=RandMove // 1=RCMove  //2=human //3=Service
+int Mode = 1;// 0=RandMove // 1=RCMove  //2=human //3=Service
 int moving = 0;
 int SendStatus = 16; /// StatusSignal to PowerControl
 int stat=0;

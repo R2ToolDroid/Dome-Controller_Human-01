@@ -124,40 +124,34 @@ int rcMove() {
     if (sensorValue >=800){ ///Check if Sensor is Connectet an RC on
 
     
-    if (sensorValue < 1250){
-      if (debug){ 
-        Serial.println(F("Links"));
-      }
-          // set the LED with the ledState of the variable:
-     //digitalWrite(ledPin2, HIGH);
-     //tempo = sensorValue /4;
-     //tempo = tempo *-1; 
-     //tempo = tempo +500;
-
-      tempo = map (sensorValue, 1600, 900,50,250);
-     
-     
-    //Drehung Rechts
-
-    
+    if (sensorValue < 1350){
+      
+      int Ltempo = map (sensorValue, 1350, 1015,50,255);
+       
      analogWrite(ledPin2, HIGH); 
-     motorController.TurnLeft(tempo);
-     //analogWrite(links, 0); 
-     //analogWrite(rechts, tempo); 
+     motorController.TurnLeft(Ltempo);
+   
+     if (debug){ 
+        Serial.print(F("Links - Ltempo: "));
+        Serial.println(Ltempo);
+      }
     
     } else if (sensorValue > 1650) {
-      if (debug) {
-      Serial.println(F("rechts"));
-      }     
+          
      // set the LED with the ledState of the variable:
       analogWrite(ledPin1, HIGH); 
       //tempo = sensorValue ;////6;
-      tempo = map(sensorValue, 1650,2020,50,255);
+      int Rtempo = map(sensorValue, 1650,2020,50,255);
       //tempo = tempo /5;
       
-      motorController.TurnRight(tempo);
+      motorController.TurnRight(Rtempo);
       //analogWrite(rechts, 0);  
       //analogWrite(links, tempo); 
+
+      if (debug) {
+      Serial.print(F("rechts Rtempo: "));
+      Serial.println(Rtempo);
+      } 
      
     }  else {
       //analogWrite(links, 0);  
@@ -171,7 +165,7 @@ int rcMove() {
     }///End Sensor Check
     
   if (debug) { 
-    Serial.print(F("Tempo "));Serial.println(tempo);
+    Serial.print(F("Tempo L "));Serial.println(tempo);
     Serial.print(F("Value "));Serial.println(sensorValue);
     }
   motorController.Disable();

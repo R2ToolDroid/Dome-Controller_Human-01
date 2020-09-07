@@ -89,10 +89,6 @@ void loop() {
     Comand();
     AnimatedEvent::process();
 
-
-
-    
-
   if (Mode == 0){
      randomMove();
      durchlauf = durchlauf+1;
@@ -113,10 +109,10 @@ void loop() {
   //Serial.println(durchlauf);
     stat = digitalRead(SendStatus);
 
-    //Serial.print(stat);
+    Serial.print(stat);
 
     if (stat == 0) {
-      Mode++;
+      //Mode++;
       digitalWrite(ledPinC, HIGH);  
       delay(1000);
       digitalWrite(ledPinC, LOW);  
