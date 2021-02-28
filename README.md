@@ -38,4 +38,19 @@ Take care that all pin in right order
 
 
 
+### Swap to IBT-2 H-bridge modul
+
+high power motor driver based on two BTS7960 chips
+
+Please make a Connector wired like here:
+
+![BT2-wiring](/images/BT-Motor-Bridge.jpg)
+
+![BT2-wiring](/images/bt2-on-board.jpg )
+
+
+
 ....more to come :-)
+
+
+
